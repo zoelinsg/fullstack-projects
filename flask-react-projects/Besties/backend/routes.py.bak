@@ -1,0 +1,94 @@
+from flask import Blueprint, request, jsonify
+from models import Friend
+from app import db
+
+# 創建 API 藍圖
+api_bp = Blueprint('api', __name__)
+
+# 取得所有朋友的資料
+@api_bp.route("/api/friends", methods=["GET"])
+def get_friends():
+    # 從資料庫查詢所有朋友
+    friends = Friend.query.all()
+    # 將每個朋友的資料轉換為 JSON 格式
+    result = [friend.to_json() for friend in friends]
+    # 返回 JSON 格式的朋友資料
+    return jsonify(result)
+
+# 創建一個新的朋友資料
+@api_bp.route("/api/friends", methods=["POST"])
+def create_friend():
+    # 從請求中獲取 JSON 格式的資料
+    data = request.json
+    # 定義必須的欄位
+    required_fields = ["name", "role", "description", "gender"]
+    # 檢查是否所有必須欄位都存在
+    for field in required_fields:
+        if field not in data or not data.get(field):
+            # 如果有欄位缺失，返回 400 錯誤
+            return jsonify({"error": f'Missing required field: {field}'}), 400
+
+    # 從資料中提取對應的值
+    name = data.get("name")
+    role = data.get("role")
+    description = data.get("description")
+    gender = data.get("gender")
+
+    # 根據性別生成對應的頭像圖片 URL
+    if gender == "male":
+        img_url = f"https://avatar.iran.liara.run/public/boy?username={name}"
+    elif gender == "female":
+        img_url = f"https://avatar.iran.liara.run/public/girl?username={name}"
+    else:
+        img_url = None
+
+    # 創建一個新的朋友實例
+    new_friend = Friend(name=name, role=role, description=description, gender=gender, img_url=img_url)
+    
+    # 將新朋友資料加入資料庫會話
+    db.session.add(new_friend)
+    # 提交會話，將資料保存到資料庫
+    db.session.commit()
+
+    # 返回新朋友的資料和 201 狀態碼
+    return jsonify(new_friend.to_json()), 201
+
+# 刪除一個朋友資料
+@api_bp.route("/api/friends/<int:id>", methods=["DELETE"])
+def delete_friend(id):
+    # 根據 id 查詢朋友
+    friend = Friend.query.get(id)
+    # 如果該 id 的朋友不存在，返回 404 錯誤
+    if friend is None:
+        return jsonify({"error": "Friend not found"}), 404
+    
+    # 刪除該朋友資料
+    db.session.delete(friend)
+    # 提交變更到資料庫
+    db.session.commit()
+    
+    # 返回刪除成功訊息
+    return jsonify({"msg": "Friend deleted"}), 200
+
+# 更新朋友資料
+@api_bp.route("/api/friends/<int:id>", methods=["PATCH"])
+def update_friend(id):
+    # 根據 id 查詢朋友
+    friend = Friend.query.get(id)
+    # 如果該 id 的朋友不存在，返回 404 錯誤
+    if friend is None:
+        return jsonify({"error": "Friend not found"}), 404
+
+    # 從請求中獲取 JSON 資料
+    data = request.json
+    # 更新朋友的資料，如果欄位未提供則保持原始值
+    friend.name = data.get("name", friend.name)
+    friend.role = data.get("role", friend.role)
+    friend.description = data.get("description", friend.description)
+    friend.gender = data.get("gender", friend.gender)
+
+    # 提交更新到資料庫
+    db.session.commit()
+    
+    # 返回更新後的朋友資料
+    return jsonify(friend.to_json()), 200

@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "fastapi-react-project-tool"
+version = "0.1.0"
+description = ""
+authors = ["zoelinsg <zoelin.sg@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.2"
+qrcode = "^8.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

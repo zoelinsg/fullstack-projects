@@ -1,0 +1,40 @@
+# TODO: 部署時需要更新此文件
+from flask import Flask, send_from_directory  # 從 Flask 引入必要的模組
+from flask_sqlalchemy import SQLAlchemy  # 引入 SQLAlchemy 用來處理資料庫
+from flask_cors import CORS  # 引入 CORS 處理跨域問題
+import os  # 用來處理操作系統路徑
+
+app = Flask(__name__)  # 創建 Flask 應用
+
+# 開發時用來解決跨域問題，生產環境不需要因為前後端在同一伺服器上運行
+CORS(app)
+
+# 設定 SQLAlchemy 的資料庫 URI，這裡使用 SQLite 資料庫
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///friends.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False  # 關閉資料庫變更追蹤以節省資源
+
+db = SQLAlchemy(app)  # 初始化 SQLAlchemy
+
+# 設定前端資料夾和打包後的 dist 資料夾路徑
+frontend_folder = os.path.join(os.getcwd(), "..", "frontend")  # 前端項目的根目錄
+dist_folder = os.path.join(frontend_folder, "dist")  # 打包後的 dist 資料夾
+
+# 從 "dist" 資料夾中提供靜態文件
+@app.route("/", defaults={"filename": ""})  # 如果路由為根路徑，預設加載 index.html
+@app.route("/<path:filename>")  # 處理其他靜態文件請求
+def index(filename):
+    if not filename:
+        filename = "index.html"  # 如果沒有提供文件名，默認為 index.html
+    return send_from_directory(dist_folder, filename)  # 從 dist 資料夾中提供文件
+
+# 引入並註冊 API 藍圖
+from routes import api_bp
+app.register_blueprint(api_bp)
+
+# 當應用程序上下文可用時，創建資料庫
+with app.app_context():
+    db.create_all()  # 建立資料庫中的所有表格（如果不存在）
+
+# 如果此文件是主程序，則以 debug 模式運行
+if __name__ == "__main__":
+    app.run(debug=True)  # 在開發模式下啟動 Flask 伺服器

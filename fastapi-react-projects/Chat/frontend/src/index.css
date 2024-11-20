@@ -1,0 +1,18 @@
+/* 設定 body 元素的樣式 */
+body {
+  margin: 0;  /* 移除預設的邊距 */
+  
+  /* 設定字體家族，優先順序依序為蘋果系統、BlinkMac（Mac 瀏覽器引擎）、Segoe（Windows）、Roboto（Android）、Oxygen（KDE 桌面）、Ubuntu 字體 */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;  /* 在 Webkit 引擎的瀏覽器上進行字體的抗鋸齒處理 */
+  -moz-osx-font-smoothing: grayscale;  /* 在 macOS 的 Firefox 瀏覽器上進行字體的平滑處理，使用灰階 */
+}
+
+/* 設定 code 元素的字體樣式 */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;  /* 指定程式碼的字體家族，使用等寬字體 */
+}

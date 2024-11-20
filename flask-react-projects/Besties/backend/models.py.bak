@@ -1,0 +1,21 @@
+from app import db  # 從 app 模組中引入 db（SQLAlchemy 實例）
+
+# 定義 Friend 模型，表示朋友資料表
+class Friend(db.Model):
+    id = db.Column(db.Integer, primary_key=True)  # 定義 id 欄位，為主鍵，數值類型
+    name = db.Column(db.String(100), nullable=False)  # 定義 name 欄位，字串類型，最多 100 字，不能為空
+    role = db.Column(db.String(50), nullable=False)  # 定義 role 欄位，字串類型，最多 50 字，不能為空
+    description = db.Column(db.Text, nullable=False)  # 定義 description 欄位，Text 類型，存放詳細描述，不能為空
+    gender = db.Column(db.String(10), nullable=False)  # 定義 gender 欄位，字串類型，最多 10 字，不能為空
+    img_url = db.Column(db.String(200), nullable=True)  # 定義 img_url 欄位，字串類型，最多 200 字，圖片網址可以為空
+
+    # 定義一個將資料轉換為 JSON 格式的方法
+    def to_json(self):
+        return {
+            "id": self.id,  # 返回 id
+            "name": self.name,  # 返回名字
+            "role": self.role,  # 返回角色
+            "description": self.description,  # 返回描述
+            "gender": self.gender,  # 返回性別
+            "imgUrl": self.img_url,  # 返回圖片 URL
+        }

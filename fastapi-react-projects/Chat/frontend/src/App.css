@@ -1,0 +1,165 @@
+/* 設定 App 元素的文字對齊方式為置中 */
+.App {
+  text-align: center;
+}
+
+/* 設定 App-logo 元素的高度及禁止指標事件 */
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+/* 當用戶未啟用減少動畫偏好時，啟用 App-logo 的旋轉動畫 */
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear; /* 無限次旋轉，20秒一圈，線性動畫 */
+  }
+}
+
+/* 設定 App-header 元素的樣式，包括背景色、最小高度及內容置中的佈局 */
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+/* 設定 App-link 元素的字體顏色 */
+.App-link {
+  color: #61dafb;
+}
+
+/* 定義 App-logo-spin 的旋轉動畫：從 0 度旋轉到 360 度 */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 設定容器的樣式，使其內容置中 */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 設定聊天框容器的樣式，包含陰影和邊框 */
+.chat-container {
+  box-shadow: 10px 10px;
+  max-width: 500px;
+  max-height: 500px;
+  border: 1px solid;
+}
+
+/* 設定聊天框的樣式，包含內邊距、背景色及滾動樣式 */
+.chat {
+  padding: 10px;
+  width: 400px;
+  height: 400px;
+  background-color: rgb(77, 168, 253, 0.6); /* 半透明背景色 */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* 垂直方向滾動 */
+  -ms-overflow-style: none; /* IE 和 Edge 隱藏滾動條 */
+  scrollbar-width: none; /* Firefox 隱藏滾動條 */
+}
+
+/* Chrome 隱藏滾動條 */
+.chat::-webkit-scrollbar {
+  display: none;
+}
+
+/* 設定輸入框容器的樣式，包含內邊距、邊框和背景色 */
+.input-chat-container {
+  padding: 10px;
+  height: auto;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(53, 253, 220);
+}
+
+/* 設定輸入框的樣式，包含最小高度、邊框及去除外邊框 */
+.input-chat {
+  width: 100%;
+  min-height: 25px;
+  outline: none; /* 去除外邊框 */
+  border: 1px solid black;
+}
+
+/* 設定提交按鈕的樣式，包含背景色、邊框及滑鼠指標樣式 */
+.submit-chat {
+  max-width: 50px;
+  background-color: rgb(0, 55, 128);
+  outline: none;
+  border: 1px solid rgb(0, 55, 128);
+  cursor: pointer;
+  margin-left: 5px;
+  color: white;
+}
+
+/* 當滑鼠懸停於提交按鈕時，變更背景色 */
+.submit-chat:hover {
+  width: 50px;
+  background-color: rgb(16, 108, 230);
+}
+
+/* 設定我的訊息容器樣式，訊息靠右對齊 */
+.my-message-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+/* 設定我的訊息樣式，包含內邊距、背景色、邊框及陰影 */
+.my-message {
+  padding: 5px;
+  width: fit-content;
+  min-width: 100px;
+  max-width: 300px;
+  background-color: rgb(77, 253, 215);
+  border: 1px solid black;
+  box-shadow: 5px 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* 設定他人的訊息容器樣式，訊息靠左對齊 */
+.another-message-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+/* 設定他人的訊息樣式，包含內邊距、背景色、邊框及陰影 */
+.another-message {
+  max-width: 300px;
+  padding: 5px;
+  width: fit-content;
+  background-color: rgb(212, 253, 77);
+  border: 1px solid black;
+  box-shadow: 5px 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* 設定客戶端訊息的字體大小及邊距 */
+.client {
+  font-size: 13px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+/* 設定訊息的邊距 */
+.message {
+  margin-top: 3px;
+  margin-bottom: 0px;
+}
