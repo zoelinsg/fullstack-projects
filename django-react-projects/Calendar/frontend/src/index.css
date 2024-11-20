@@ -1,0 +1,12 @@
+/* 全局 CSS 變數設置: 設定根元素的字體 */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; 
+  /* 設定全局字體為 Inter，如果找不到則依序使用其他替代字體，最後為 sans-serif */
+}
+
+/* 頁面基本樣式設定 */
+html, body {
+  height: 100%; /* 設定 HTML 和 body 元素的高度為 100%，讓頁面佔滿整個視窗 */
+  margin: 0; /* 移除預設的外邊距，避免頁面產生不必要的間距 */
+  padding: 0; /* 移除預設的內邊距，使內容可以緊貼邊緣 */
+}

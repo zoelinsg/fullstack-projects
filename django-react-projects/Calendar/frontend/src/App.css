@@ -1,0 +1,22 @@
+/* 設置樣式: 已完成的事件 */
+a.Completed {
+  background-color: green; /* 背景顏色為綠色，表示已完成 */
+  border: 2px solid darkgreen; /* 邊框為深綠色 */
+}
+
+/* 設置樣式: 開放中的事件 */
+a.Open {
+  background-color: red; /* 背景顏色為紅色，表示正在開放 */
+  border: 2px solid darkred; /* 邊框為深紅色 */
+}
+
+/* 設置樣式: 進行中的事件 */
+a.progress {
+  background-color: orange; /* 背景顏色為橙色，表示進行中 */
+  border: 2px solid orangered; /* 邊框為橙紅色 */
+}
+
+/* 全局 FullCalendar 事件樣式 */
+.fc-event {
+  cursor: pointer; /* 當滑鼠移到事件上時，顯示手型指標 */
+}
